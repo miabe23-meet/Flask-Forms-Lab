@@ -10,7 +10,7 @@ app = Flask(  # Create a flask app
 
 username = "mia"
 password = "123"
-
+facebook_friends=['gefen', 'lia', 'maya ']
 
 @app.route('/', methods=['GET','POST'])  
 def login():
@@ -24,12 +24,16 @@ def login():
 
 @app.route('/home')
 def home():
-	return render_template('home.html', facebook_friends=['gefen ', 'lia'])
+	return render_template('home.html', facebook_friends= facebook_friends)
 
 
 @app.route('/friend_exists/<string:friend>',methods=['GET','POST'])
 def friend_exists(friend):
-	return render_template('friend_exists.html', f=friend)
+	if friend in facebook_friends:
+		return render_template('friend_exists.html', f=friend, person='True')
+	else:
+		return render_template('friend_exists.html', f=friend, person='False')
+
 
 
 
